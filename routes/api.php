@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 
+use App\User;
+use App\Http\Resources\User as UserResource;
+use App\Http\Resources\UserCollection;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +17,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::get('test', function () {
+        return "hello world";
+    });
+    
+    Route::get('login', 'Api\Auth\LoginController@login');
 });
+
+Route::post('register', 'Api\Auth\RegisterController@store');
+Route::post('token', 'Api\Auth\ApiTokenController@update');
